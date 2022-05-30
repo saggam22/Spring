@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <settings>
+  <!-- 마이바티스 버전이 올라가면서 자동으로 null을 입력해주지만 낮은 버전은 셋팅을 해주어야한다. -->
+  	<setting name="jdbcTypeForNull" value="NULL"/>
+  </settings>
+</configuration>
