@@ -36,7 +36,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	//postmapping getmapping으로 표시해도 되지만 RequestMapping을 사용하면 알아서 get, post형식을 찾아서 결과값을 준다 
+	//postMapping getMapping으로 표시해도 되지만 RequestMapping을 사용하면 알아서 get, post형식을 찾아서 결과값을 준다 
 	@RequestMapping("/Hello") //기존적으로 get방식으로 요청 만약 post타입으로 잘못 요청되었으면 404허용되지않는 메소드 오류가 뜸
 	public String hello() {
 		return "hello";
