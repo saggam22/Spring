@@ -1,5 +1,8 @@
 package co.micol.prj.student.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,5 +52,31 @@ public class StudentController {
 			data = "Y";  //사용할 수 있는 아이디
 		}
 		return data;
+	}
+	
+	@RequestMapping("/studentLoginForm.do")
+	public String studentLoginForm(StudentVO vo, Model model) {
+		return "student/studentLoginForm";
+	}
+	
+	@RequestMapping("/studentLogin.do")
+	public String studentLogin(StudentVO vo, Model model, HttpSession session) {
+//		System.out.println(request.getParameter("id")); request객체에서 넘어온 값을 자동으로 vo 객체에 스프링이 자동으로 담아주므로 사용할 필요 없음 
+		vo = studentDao.studentSelect(vo);
+		if (vo != null) {
+			session.setAttribute("id", vo.getId());
+			session.setAttribute("name", vo.getName());
+			model.addAttribute("message", "님 환영!!");
+		} else {
+			model.addAttribute("message", "아이디 또는 패스워드를 확인하세요");
+		}
+		return "student/studentLogin";
+	}
+	
+	@RequestMapping("/studentLogout.do")
+	public String studentLogout(HttpSession session, Model model) {
+		session.invalidate();
+		model.addAttribute("message", "정상적으로 로그아웃되었습니다.");
+		return "student/studentLogout";
 	}
 }
