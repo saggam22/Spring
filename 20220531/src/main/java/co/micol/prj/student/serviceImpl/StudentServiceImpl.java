@@ -16,38 +16,32 @@ public class StudentServiceImpl implements StudentService {
 	private StudentMapper map; //IoC컨테이너에서 Student-map.xml을 자동주입한다.
 	
 	@Override
-	public List<StudentVO> studentSelectList() {
-		
+	public List<StudentVO> studentSelectList() {	
 		return map.studentSelectList();
 	}
 
 	@Override
-	public StudentVO studentSelect(StudentVO vo) {
-		
+	public StudentVO studentSelect(StudentVO vo) {	
 		return map.studentSelect(vo);
 	}
 
 	@Override
-	public int StudentInsert(StudentVO vo) {
-		
+	public int StudentInsert(StudentVO vo) {	
 		return map.StudentInsert(vo);
 	}
 
 	@Override
-	public int StudentUpdate(StudentVO vo) {
-		
+	public int StudentUpdate(StudentVO vo) {	
 		return map.StudentUpdate(vo); //이름만 변경할 수 있다.
 	}
 
 	@Override
-	public int StudentDelete(StudentVO vo) {
-		
+	public int StudentDelete(StudentVO vo) {	
 		return map.StudentDelete(vo);
 	}
 
 	@Override
 	public boolean idCheck(String id) {
-		
 		return map.idCheck(id);
 	}
 	
