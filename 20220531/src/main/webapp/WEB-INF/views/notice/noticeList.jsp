@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="resources/jquery-3.6.0.min.js"></script>
 </head>
 <style>
 	table tr:hover {
@@ -17,7 +18,7 @@
 <div align="center">
 	<div><h1>공지사항 목록</h1></div>
 	<div>
-		<form id="frm" action="ajaxSearchList.do" method="post">
+		<form id="frm" action="#" method="post">
 			<select name="state" id="state">
 				<option value="1">전 체</option>
 				<option value="2">작성자</option>
@@ -25,7 +26,7 @@
 				<option value="4">내 용</option>
 			</select>&nbsp;
 			<input type="text" id="key" name="key">&nbsp;
-			<button type="button" onclick="searchNotice()">검 색</button>
+			<button type="button" onclick="searchNotice2()">검 색</button>
 		</form>
 	</div><br>
 	<div>
@@ -43,7 +44,7 @@
 			<tbody>
 				<c:if test="${!empty notices }">
 					<c:forEach items="${notices }" var="n">
-						<tr>
+						<tr onclick="eventList(${n.noticeId})">
 							<td>${n.noticeId }</td>
 							<td>${n.noticeName }</td>
 							<td>${n.noticeTitle }</td>
@@ -70,37 +71,84 @@
 </div>
 </body>
 
+<script>
+function searchNotice2() {
+//jQuery 사용하기
+let state = $("#state").val(); //document.getElementById("state").value 와 같다
+let key = $("#key").val();
+
+$.ajax({
+	 url : "ajaxSearchList.do", //url
+	 type : "post", //전송방식
+	 data : {"state" : state, "key" : key}, //전달할 데이터
+		 dataType : "json", //돌려받을 결과의 데이터 타입 html, text, xml, json, jsonp
+		 success : function(data) { //성공했을때 실행할 함수 결과는 data에 담김
+			 //수행할 영역
+			 htmlConvert(data);
+		 },
+		 error : function() { //실패했을때 실행할 함수
+			 alert("의도치 않는 오류가 발생했습니다.")
+		 }
+})
+
+function htmlConvert(data) {
+	$("tbody").remove(); //tbody삭제
+	let tbody = $("<tbody/>");
+	$.each(data,function(index, n) {
+		var row = $("<tr onclick='eventList("+n.noticeId+")'/>").append(
+				$("<td/>").text(n.noticeId),
+				$("<td/>").text(n.noticeName),
+				$("<td/>").text(n.noticeTitle),
+				$("<td/>").text(n.noticeDate),
+				$("<td/>").text(n.noticeHit),
+				$("<td/>").text(n.noticeAttech),
+		);
+		tbody.append(row); //행을 추가
+	});
+	$("#tb").append(tbody); //tbody를 추가
+}
+}
+
+</script>
+
 <!-- 그룹이벤트 생성(상세조회) -->
 <script type="text/javascript">
-	 let list = document.querySelector('tbody');
-	 list.addEventListener('click', function(ev) {
-		 if(ev.target.tagName === 'TD') {			 
+function eventList(data) {
+	 //let list = document.querySelector('tbody');
+	 //list.addEventListener('click', function(ev) {
+		 //if(ev.target.tagName === 'TD') {			 
 		 //console.log(ev.target.parentNode.children[0].textContent);
-		 frm2.noticeId.value = ev.target.parentNode.children[0].textContent;
+		 //frm2.noticeId.value = ev.target.parentNode.children[0].textContent;
 		 //frm2.action="getContent.do"로 action을 지정해줄수도 있음
+		 frm2.noticeId.value = data;
 		 frm2.submit();
-		 }
+		 //}
 		 //location.href = 'getContent.do?noticeId='+ev.target.parentNode.children[0].textContent;
-	 })
-	 
+	 //})
+}
+
 	 function searchNotice() {
-		 let list = document.querySelector('tbody');
-		 list.removeChild(list.childNodes[0]);
 		 let fields = ['noticeId', 'noticeName', 'noticeTitle', 'noticeDate', 'noticeHit', 'noticeAttech'];
+		 let allTr = document.querySelectorAll('tbody>tr');
+         allTr.forEach(function (tr) {
+        	 tr.remove();
+         })
+		 let list = document.querySelector('tbody');
+         
+         
 		 fetch('ajaxSearchList.do', {
 			 method: 'POST',
 			 body : new FormData(document.getElementById('frm'))
 		})
 		 .then(response => response.json())
 		 .then(data => {
-			 console.log(list);
-			 data.forEach(a => {
+			 data.forEach(d => {
 			 let tr = document.createElement('tr');
-				 for (let fields in a) {
+			 fields.forEach(f => {
 		       let td = document.createElement('td');
-		       td.innerHTML = a[fields];
-		       tr.appendChild(td);
-		     	}
+		       td.innerHTML = d[f];
+		       tr.appendChild(td); 
+			 })
 				 list.appendChild(tr);
 			 })
 		 })
