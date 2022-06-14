@@ -21,6 +21,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- file upload Resolve -->
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8" />
+		<beans:property name="maxUploadSize" value="1073741824" />
+		<beans:property name="maxInMemorySize" value="1073741824" />
+	</beans:bean>
+	
 	<context:component-scan base-package="co.micol.lgy" />
 	
 </beans:beans>

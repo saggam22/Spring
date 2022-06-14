@@ -11,7 +11,7 @@
 <div align="center">
 	<div><h1>게시글 목록</h1></div>
 	<div>
-		<form id="frm" method="post">
+		<form id="frm" method="post" enctype="multipart/form-data">
 			<select name="state" id="state">
 				<option value="1">전 체</option>
 				<option value="2">작성자</option>
@@ -19,7 +19,7 @@
 				<option value="4">내 용</option>
 			</select>&nbsp;
 			<input type="text" id="key" name="key">&nbsp;
-			<button type="button" onclick='searchBoard()'>검 색</button>
+			<button type="button" onclick="searchBoard()">검 색</button>
 		</form>
 	</div><br>
 	<div>
@@ -75,7 +75,7 @@ function searchBoard(){
     })
 	 let list = document.querySelector('tbody');
     
-	 fetch('ajaxSearchList.do',{
+	 fetch('ajaxSearchList.do', {
 		 method: 'POST',
 		 body : new FormData(document.getElementById('frm'))
 		})
