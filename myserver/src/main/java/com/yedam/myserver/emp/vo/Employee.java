@@ -32,6 +32,8 @@ public class Employee {
 	@JsonProperty("fname") //필드명 재정의
 	private String first_name;
 	private Integer employee_id;
-	private String department_name;
+	
+	//private String department_name;
+	private Departments department;
 
 }

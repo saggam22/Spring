@@ -34,6 +34,7 @@
 
 	<!-- Root Logger -->
 	<root>
+		<!-- 에러가 났을때만 log를 출력하려면 value에 "error"를 넣어주면 된다 지금은 실행시마다 로그 출력 -->
 		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>

@@ -16,7 +16,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<mvc:annotation-driven />
 	
-	<context:component-scan base-package="com.yedam.muserver">
+	<context:component-scan base-package="com.yedam.myserver">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
@@ -29,5 +29,6 @@
 	<!-- @Transactional -->
 	<tx:annotation-driven/>
 	
+	<!-- aspect와 관련된 것들을 모두 스캔 -->
 	<aop:aspectj-autoproxy/>
 </beans>

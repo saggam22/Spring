@@ -21,11 +21,13 @@
 	<resources mapping="/index.html" location="/index.html" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- ViewResolver는 종류가 굉장히 많음 pdf뷰, 엑셀뷰 등등 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 스캔하는 위치를 잡아줌 -->
 	<context:component-scan base-package="com.yedam.myserver" >
 	  <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>

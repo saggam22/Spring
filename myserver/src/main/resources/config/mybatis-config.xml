@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+		<!-- 컬럼명의 _를 자바의 카멜케이스 형식으로 변경해줌 예:emp_id -> empId -->
+		<setting name="mapUnderscoreToCamelCase" value="false"/>
+	</settings>
 	<typeAliases>
 		<package name="com.yedam.myserver"/> 
 	</typeAliases>
