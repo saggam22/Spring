@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+전체건수 : [[${#lists.size(empList)}]] <br>
+전체건수 : <span th:text="${#lists.size(empList)}"></span>
+<table>
+ <tr>
+ <th>no</th>
+ <th>employee_id</th>
+ <th>first_name</th>
+ <th>last_name</th>
+ </tr> <tr th:each="emp : ${empList}">
+ <td th:text="${empStat.count}"></td>
+ <td th:text="${emp.employeeId}"></td>
+ <td th:text="${emp.firstName} + ${emp.lastName}"></td>
+ <td th:text="${emp.hireDate}"></td>
+ </tr>
+</table>
+</body>
+</html>
