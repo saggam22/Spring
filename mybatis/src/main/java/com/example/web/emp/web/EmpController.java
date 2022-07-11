@@ -1,4 +1,4 @@
-package com.example.web;
+package com.example.web.emp.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,12 @@ import com.example.web.emp.mapper.EmpMapper;
 @Controller
 public class EmpController {
 	
-	@Autowired EmpMapper dao; 
+	@Autowired EmpMapper dao;
+	
+	@RequestMapping("/main")
+	public String main() {
+		return "main";
+	}
 	
 	@RequestMapping("/empList")
 	public String empList(Model model) { 

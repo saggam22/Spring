@@ -1,5 +1,7 @@
 package com.example.web.emp.service;
 
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -13,7 +15,9 @@ public class EmpVO {
 	String firstName;
 	String lastName;
 	String email;
-	String hireDate;
+	Date hireDate;
+	String managerId;
+	int salary;
 	String jobId;
 	String departmentId;
 	String profile;

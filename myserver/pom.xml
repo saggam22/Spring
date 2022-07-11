@@ -215,7 +215,6 @@
 			<version>0.4.14</version>
 		</dependency>
 
-
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -249,6 +248,13 @@
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 			<version>1.16</version>
+		</dependency>
+		
+		<!-- web socket -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 	</dependencies>
