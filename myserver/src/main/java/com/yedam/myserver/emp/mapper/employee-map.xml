@@ -102,4 +102,13 @@
 	 GROUP BY DEPARTMENT_ID 
 </select>
 
+<select id="getDeptListMap" resultType="map">
+	SELECT DEPARTMENT_ID "부서번호"
+				,DEPARTMENT_NAME "부서명"
+				,MANAGER_ID "부서장"
+				,LOCATION_ID "위치"
+	FROM DEPARTMENTS
+	ORDER BY DEPARTMENT_ID
+</select>
+
 </mapper>

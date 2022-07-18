@@ -1,4 +1,5 @@
 package com.yedam.myserver.emp.web;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yedam.myserver.emp.mapper.EmployeeMapper;
-import com.yedam.myserver.emp.vo.Departments;
+import com.yedam.myserver.emp.vo.DeptSearchVO;
 import com.yedam.myserver.emp.vo.Employee;
 
 @RestController
@@ -67,6 +69,18 @@ public class EmployeeController {
 	@RequestMapping("empStat")
 	public List<Map> empStat() {
 		return employeeDao.empStat();
+	}
+	
+	//부서정보 엑셀 다운로드
+	@RequestMapping("deptExelView.do")
+	public ModelAndView excelView(DeptSearchVO vo, HttpServletResponse response) throws IOException {
+		List<Map<String, Object>> list = employeeDao.getDeptListMap(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String[] header = {"부서번호", "부서명", "부서장", "위치"};
+		map.put("headers", header);
+		map.put("filename", "dept_list");
+		map.put("datas", list);
+		return new ModelAndView("commonExcelView", map);
 	}
 	
 }
