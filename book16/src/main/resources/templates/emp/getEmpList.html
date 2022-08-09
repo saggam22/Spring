@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+<h3>사원목록</h3>
+<table  class="table">
+<thead>
+  <tr>
+    <th>no</th>
+    <th>employee_id</th>
+    <th>name</th>
+    <th>hireDate</th>
+    <th>jobId</th>
+    <th>email</th>
+    <th>managerId</th>
+    <th>departmentId</th>
+    <th>salary</th>
+  </tr>
+</thead>
+<tbody>    
+  <tr th:each="emp, status: ${empList}" th:class="${status.odd}? 'odd'">
+    <td th:text="${status.count}">1</td>
+    <td th:text="${emp.employeeId}">100</td>
+    <td><a th:href="@{updateFormEmp(employeeId=${emp.employeeId})}" th:text="${emp.firstName} + ' '+ ${emp.lastName}" >steven king</a></td>
+    <td th:text="${#calendars.format(emp.hireDate,'yyyy-MM-dd')}">2021-01-03</td>
+    <td th:text="${emp.jobId}">IT_PROG</td>
+    <td th:text="${emp.email}">abc@a.com</td>
+    <td><span th:text="${emp.managerId}">170</span> 
+        <a href="#" 
+           th:href="@{/getEmp/{id}(id=${emp.employeeId})}" 
+           th:unless="${#strings.isEmpty(emp.managerId)}">메니저조회</a></td>
+    <td th:text="${emp.departmentId}">10</td>
+    <td>3000</td>    
+  </tr>
+</tbody>  
+</table>
+</th:block>

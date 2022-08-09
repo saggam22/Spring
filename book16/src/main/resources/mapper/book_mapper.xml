@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.test.book.mapper.BookMapper">
+
+	<!-- 책번호 받아오기 -->
+	<select id="getBookNo" resultType="com.yedam.test.book.service.BookVO">
+		SELECT MAX(BOOK_NO)+1 AS BOOK_NO 
+		FROM BOOK_TBL_06
+	</select>
+	
+	<!-- 책 등록 -->
+	<insert id="bookInsert" parameterType="com.yedam.test.book.service.BookVO">
+		INSERT INTO BOOK_TBL_06
+		VALUES (#{bookNo}, #{bookName}, #{bookCoverimg}, TO_DATE(#{bookDate},'yyyy/mm/dd'), TO_NUMBER(#{bookPrice}), #{bookPublisher}, #{bookInfo})
+	</insert>
+	
+	<!-- 책 전체 목록 -->
+	<select id="bookList" resultType="com.yedam.test.book.service.BookVO">
+		SELECT BOOK_NO, BOOK_NAME, BOOK_COVERIMG, TO_CHAR(BOOK_DATE, 'yyyy/mm/dd') AS BOOK_DATE, TO_CHAR(BOOK_PRICE, '999,999,999') AS BOOK_PRICE, BOOK_PUBLISHER, BOOK_INFO 
+		FROM BOOK_TBL_06
+	</select>
+	
+	<!-- 대여 현황 -->
+	<select id="rentList" resultType="com.yedam.test.book.service.BookVO">
+		SELECT MAX(r.BOOK_NO) AS BOOK_NO, MAX(b.BOOK_NAME) AS BOOK_NAME, SUM(r.RENT_PRICE) AS SUM, COUNT(r.RENT_NO) AS COUNT
+		FROM BOOK_TBL_06 b JOIN RENT_TBL_06 r
+		ON b.BOOK_NO = r.BOOK_NO
+		GROUP BY b.BOOK_NO
+		ORDER BY b.BOOK_NO
+	</select>
+</mapper>
